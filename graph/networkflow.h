@@ -3,11 +3,11 @@
 #include "graphclass.h"
 #include <climits>
 #include <queue>
-#include <iostream>
 
 namespace stdalg {
+	template<typename _Ty = int>
 	class NetworkFlowAdapter {
-		Graph gp;
+		graph<_Ty> gp;
 		int* level;
 		int* work;
 		int min(int a, int b) {
@@ -26,7 +26,7 @@ namespace stdalg {
 			while (!q.empty()) {
 				cur = q.front();
 				q.pop();
-				for (edge<int> edg : gp.getConnectionRef()[cur]) {
+				for (edge<_Ty> edg : gp.getConnectionRef()[cur]) {
 					if (level[edg.getToVertex()] == -1 && edg.getRemainFlow() > 0) {
 						level[edg.getToVertex()] = level[edg.getFromVertex()] + 1;
 						q.push(edg.getToVertex());
@@ -35,13 +35,13 @@ namespace stdalg {
 			}
 			return level[end] != -1;
 		}
-		int dinic_dfs(int cur, int destination, int flow) {
+		_Ty dinic_dfs(int cur, int destination, int flow) {
 			int nxt;
-			int dfsRes;			
+			_Ty dfsRes;			
 			if (cur == destination)
 				return flow;
 			for (int& i = work[cur]; i < gp.getConnectionRef()[cur].size(); i++) {
-				edge<int>& edg = gp.getConnectionRef()[cur][i];				
+				edge<_Ty>& edg = gp.getConnectionRef()[cur][i];				
 				nxt = edg.getToVertex();
 				if (level[nxt] == level[cur] + 1 && edg.getRemainFlow() > 0) {
 					dfsRes = dinic_dfs(nxt, destination, min(edg.getRemainFlow(), flow));					
@@ -55,7 +55,7 @@ namespace stdalg {
 			return 0;
 		}
 		void reset() {
-			std::vector<edge<int>>* gpVec = gp.getConnectionRef();			
+			std::vector<edge<_Ty>>* gpVec = gp.getConnectionRef();			
 			for (int i = 0; i < gp.getCapacity(); i++) {
 				for (int j = 0; j < gpVec[i].size(); j++) {
 					gpVec[i][j].setFlow(0);
@@ -65,14 +65,14 @@ namespace stdalg {
 		}
 	public:
 		NetworkFlowAdapter() { };
-		NetworkFlowAdapter(Graph g, bool isDualConnected = false) : gp(g) {
+		NetworkFlowAdapter(graph<_Ty> g, bool isDualConnected = false) : gp(g) {
 			if (!isDualConnected) {
-				std::vector<edge<int>>* tempVec;
+				std::vector<edge<_Ty>>* tempVec;
 				tempVec = g.getConnectionRef();
-				std::vector<edge<int>>* gpVec;
+				std::vector<edge<_Ty>>* gpVec;
 				gpVec = gp.getConnectionRef();
 				int size = g.getCapacity();				
-				edge<int> tmp;
+				edge<_Ty> tmp;
 				for (int i = 0; i < size; i++) {
 					for (int j = 0; j < tempVec[i].size(); j++) {
 						gp.connect(gpVec[i][j].getToVertex(), gpVec[i][j].getFromVertex(), -gpVec[i][j].getCost(), 0);
@@ -84,15 +84,15 @@ namespace stdalg {
 			level = new int[gp.getCapacity()];
 			work = new int[gp.getCapacity()];
 		}
-		void adapt(Graph g, bool isDualConnected = false) {
+		void adapt(graph<_Ty> g, bool isDualConnected = false) {
 			gp = g;
 			if (!isDualConnected) {
-				std::vector<edge<int>>* tempVec;
+				std::vector<edge<_Ty>>* tempVec;
 				tempVec = g.getConnectionRef();
-				std::vector<edge<int>>* gpVec;
+				std::vector<edge<_Ty>>* gpVec;
 				gpVec = gp.getConnectionRef();
 				int size = g.getCapacity();
-				edge<int> tmp;
+				edge<_Ty> tmp;
 				for (int i = 0; i < size; i++) {
 					for (int j = 0; j < tempVec[i].size(); j++) {
 						gp.connect(gpVec[i][j].getToVertex(), gpVec[i][j].getFromVertex(), -gpVec[i][j].getCost(), 0);
@@ -106,9 +106,9 @@ namespace stdalg {
 			level = new int[gp.getCapacity()];
 			work = new int[gp.getCapacity()];
 		}
-		int getMaximumFlow(int start, int end) { //Works with Dinic's algorithm
-			int res = 0;
-			int flow;
+		_Ty getMaximumFlow(int start, int end) { //Works with Dinic's algorithm
+			_Ty res = 0;
+			_Ty flow;
 			while (dinic_bfs(start, end)) {
 				for (int i = 0; i < gp.getCapacity(); i++)
 					work[i] = 0;				
@@ -120,21 +120,21 @@ namespace stdalg {
 				}
 			}
 			reset();
-			return res;			
+			return res;
 		}
-		std::pair<int, int> getMCMF(int start, int end) { //based on spfa;
-			std::pair<int, int> res = { 0, 0 };
+		std::pair<_Ty, _Ty> getMCMF(int start, int end) { //based on spfa;
+			std::pair<_Ty, _Ty> res = { 0, 0 };
 			int maxSize = gp.getCapacity();
 			int tempResFlow = 0;
-			edge<int>** pre = new edge<int>*[maxSize];
-			int* dist = new int[maxSize];
+			edge<_Ty>** pre = new edge<_Ty>*[maxSize];
+			_Ty* dist = new _Ty[maxSize];
 			bool* inQueue = new bool[maxSize];
 			for (int i = 0; i < maxSize; i++)
 				inQueue[i] = false;
 			int cur;
 			int nxt;
 			while (true) {
-				std::queue<int> q;				
+				std::queue<int> q;	
 				for (int i = 0; i < maxSize; i++)
 					dist[i] = INT_MAX;
 				for (int i = 0; i < maxSize; i++) {					
@@ -147,7 +147,7 @@ namespace stdalg {
 					cur = q.front();
 					q.pop();
 					inQueue[cur] = false;
-					for (edge<int>& edg : gp.getConnectionRef()[cur]) {
+					for (edge<_Ty>& edg : gp.getConnectionRef()[cur]) {
 						nxt = edg.getToVertex();
 						if (edg.getRemainFlow() > 0 && dist[nxt] > dist[cur] + edg.getCost()) {
 							dist[nxt] = dist[cur] + edg.getCost();
@@ -162,13 +162,13 @@ namespace stdalg {
 				if (pre[end] == nullptr)
 					break;
 				tempResFlow = INT_MAX;
-				for (edge<int>* i = pre[end]; ; i = pre[i->getFromVertex()]) {
+				for (edge<_Ty>* i = pre[end]; ; i = pre[i->getFromVertex()]) {
 					tempResFlow = min(tempResFlow, i->getRemainFlow());					
 					if (i->getFromVertex() == start)
 						break;
 				}				
 				
-				for (edge<int>* i = pre[end]; ; i = pre[i->getFromVertex()]) {
+				for (edge<_Ty>* i = pre[end]; ; i = pre[i->getFromVertex()]) {
 					res.second += tempResFlow * i->getCost();
 					i->setFlow(i->getFlow() + tempResFlow);
 					i->getDual()->setFlow(i->getDual()->getFlow() - tempResFlow);
