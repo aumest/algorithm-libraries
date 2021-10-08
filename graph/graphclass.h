@@ -2,26 +2,25 @@
 #define __GRAPHCLASS__
 #include <vector>
 #include <stdexcept>
-namespace stdalg {
-	using Graph = internal_graph<int>;
+namespace stdalg {	
 	template<typename _Ty = int>
 	class edge {
 		int fromVertex;
 		int toVertex;		
 		_Ty cost;
-		int capacity;
-		int flow = 0;
+		_Ty capacity;
+		_Ty flow = 0;
 		edge<_Ty>* dual = nullptr;
 	public:
 		edge() { }
 		edge(int fVertexIdx, int sVertexIdx) : fromVertex(fVertexIdx), toVertex(sVertexIdx) { }
 		_Ty getCost() { return cost; }
 		void setCost(_Ty v) { cost = v; }
-		int getEdgeCapacity() { return capacity; }
-		void setEdgeCapacity(int capa) { capacity = capa; }
-		int getFlow() { return flow; }
-		void setFlow(int f) { flow = f; }
-		int getRemainFlow() { return capacity - flow; }
+		_Ty getEdgeCapacity() { return capacity; }
+		void setEdgeCapacity(_Ty capa) { capacity = capa; }
+		_Ty getFlow() { return flow; }
+		void setFlow(_Ty f) { flow = f; }
+		_Ty getRemainFlow() { return capacity - flow; }
 		int getFromVertex() { return fromVertex; }
 		int getToVertex() { return toVertex; }
 		void setFromVertex(int fromVertex) { this->fromVertex = fromVertex; }
@@ -30,19 +29,19 @@ namespace stdalg {
 		edge<_Ty>* getDual() { return dual; }
 	};
 	template<typename _Ty = int>
-	class internal_graph {
+	class graph {
 		std::vector<edge<_Ty>>* connections;
 		int size;
 	public:
-		internal_graph() {
+		graph() {
 			connections = new std::vector<edge<_Ty>>[10000];
 			size = 10000;
 		}
-		internal_graph(int vCnt) {
+		graph(int vCnt) {
 			connections = new std::vector<edge<_Ty>>[vCnt + 10];
 			size = vCnt + 10;
 		}
-		internal_graph(const internal_graph& copy) : size(copy.size) {
+		graph(const graph& copy) : size(copy.size) {
 			connections = new std::vector<edge<_Ty>>[copy.size];
 			for (int i = 0; i < copy.size; i++)
 				connections[i] = copy.connections[i];
@@ -51,12 +50,12 @@ namespace stdalg {
 			edge<_Ty> tmp(fromVertex, toVertex);			
 			connections[fromVertex].push_back(tmp);
 		}
-		void connect(int fromVertex, int toVertex, int cost) {
+		void connect(int fromVertex, int toVertex, _Ty cost) {
 			edge<_Ty> tmp(fromVertex, toVertex);
 			tmp.setCost(cost);
 			connections[fromVertex].push_back(tmp);
 		}
-		void connect(int fromVertex, int toVertex, int cost, int capacity) {
+		void connect(int fromVertex, int toVertex, _Ty cost, _Ty capacity) {
 			edge<_Ty> tmp(fromVertex, toVertex);
 			tmp.setCost(cost);
 			tmp.setEdgeCapacity(capacity);
@@ -66,7 +65,7 @@ namespace stdalg {
 			connections[fromVertex].push_back({ fromVertex, toVertex });
 			connections[toVertex].push_back({ toVertex, fromVertex });
 		}
-		void dualConnect(int fromVertex, int toVertex, int cost) {
+		void dualConnect(int fromVertex, int toVertex, _Ty cost) {
 			edge<_Ty> tmp1(fromVertex, toVertex);
 			tmp1.setCost(cost);
 			edge<_Ty> tmp2(toVertex, fromVertex);
@@ -74,7 +73,7 @@ namespace stdalg {
 			connections[fromVertex].push_back(tmp1);
 			connections[toVertex].push_back(tmp2);
 		}
-		void dualConnect(int fromVertex, int toVertex, int cost, int capacity) {
+		void dualConnect(int fromVertex, int toVertex, _Ty cost, _Ty capacity) {
 			edge<_Ty> tmp1(fromVertex, toVertex);
 			tmp1.setCost(cost);
 			tmp1.setEdgeCapacity(capacity);
@@ -90,14 +89,14 @@ namespace stdalg {
 					return true;
 			}
 			return false;
-		}		
+		}
 		std::vector<edge<_Ty>>* getConnectionRef() {
 			return connections;
 		}
 		int getCapacity() {
 			return size;
 		}
-		~internal_graph() {
+		~graph() {
 			delete[] connections;
 		}
 	};
