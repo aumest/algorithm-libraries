@@ -27,7 +27,7 @@ Data Structures 관련 기능
 > * Persistent Segment Tree ❌ - 각 시점에서 자료구조 상태를 알 수 있는 segment tree
 > * BigInteger in C++ ❌ - C++에서 큰 수 다루기(string으로 구현)
 > * Merge Sort Tree ❌ - 머지 소트 트리
-> * Binary Search Tree - 이분 탐색 트리
+> * Binary Search Tree ❌ - 이분 탐색 트리
 > * Splay Tree ❌ - BST의 한 종류, Red-Black Tree나 AVL트리보다 구현이 쉬움
 > * Red-Black Tree ❔ - map과 같은 자료구조 구현에 사용되는 레드블랙 트리
 
