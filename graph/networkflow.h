@@ -3,6 +3,7 @@
 #include "graphclass.h"
 #include <climits>
 #include <queue>
+#include <iostream>
 
 namespace stdalg {
 	template<typename _Ty = int>
@@ -10,12 +11,9 @@ namespace stdalg {
 		graph<_Ty> gp;
 		int* level;
 		int* work;
-		int min(int a, int b) {
+		_Ty min(_Ty a, _Ty b) {
 			return a < b ? a : b;
-		}
-		int max(int a, int b) {
-			return a > b ? a : b;
-		}
+		}		
 		bool dinic_bfs(int start, int end) {
 			for (int i = 0; i < gp.getCapacity(); i++)
 				level[i] = -1;			
@@ -65,7 +63,7 @@ namespace stdalg {
 		}
 	public:
 		NetworkFlowAdapter() { };
-		NetworkFlowAdapter(graph<_Ty> g, bool isDualConnected = false) : gp(g) {
+		NetworkFlowAdapter(graph<_Ty> g, bool isDualConnected = false) : gp(g) {						
 			if (!isDualConnected) {
 				std::vector<edge<_Ty>>* tempVec;
 				tempVec = g.getConnectionRef();
