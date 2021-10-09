@@ -12,7 +12,7 @@ Graph 관련 기능
 > * DFS, BFS ❌ - 기본적인 그래프 탐색
 > * Dijkstra's algorithm, Floyd-Warshall algorithm, Bellman-Ford algorithm ❌ - 최단경로 알고리즘
 > * Network Flow ✔ - 최대유량 알고리즘
-> * Flow Tracking ❌ - 유량이 어떻게 출발해서 흘러야 최대유량이 되는지 추적
+> * Flow Tracking ❌ - 유량이 어떻게 흘러야 최대유량이 되는지 추적
 > * Connected Components(SCC, BCC, Block-Cut Tree) ❌ - 그래프 묶기
 > * Bipartite Matching ❌ - 이분 매칭
 > * Heavy-Light Decomposistion ❌ - Heavy-Light 분할
