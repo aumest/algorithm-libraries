@@ -21,11 +21,11 @@ Graph 관련 기능
 Data Structures 관련 기능
 -----------------------
 > * Graph, Edge ✔ - 그래프 자료구조(정점이 아니라 간선을 저장, 공간복잡도 효율성 증가)
-> * Segment Tree ❌ - 세그먼트 트리(Lazy Propagation 적용)
+> * Segment Tree ✔ - 세그먼트 트리(Lazy Propagation 적용)
 > * Union-Find ❌ - Disjoint set을 위한 자료구조
 > * Tree ❌ - 트리를 더 쉽게 다루기 위한 자료구조(LCA같은 부가기능 적용)
 > * Persistent Segment Tree ❌ - 각 시점에서 자료구조 상태를 알 수 있는 segment tree
-> * ExtendedInteger in C++ ❌ - C++에서 큰 수 다루기, n진수 쉽게 다루기(string으로 구현)
+> * ExtendedInteger in C++ ✔ - C++에서 큰 수 다루기, n진수 쉽게 다루기(string으로 구현)
 > * Merge Sort Tree ❌ - 머지 소트 트리
 > * Binary Search Tree ❌ - 이분 탐색 트리
 > * Splay Tree ❌ - BST의 한 종류, Red-Black Tree나 AVL트리보다 구현이 쉬움
@@ -48,8 +48,8 @@ Geometry 관련 기능
 
 Math 관련 기능
 --------------
-> * Fast Fourier Transform ❌ - 고속 푸리에 변환
+> * Fast Fourier Transform ✔ - 고속 푸리에 변환
 > * Chinese Remainder Theorem ❌ - 중국인의 나머지 정리
 > * Euclid Algorithm ❌ - 유클리드 호제법 (확장됨)
-> * Miller-Rabin test ❌ - 밀러-라빈 소수 판정법
+> * Miller-Rabin prime test ❌ - 밀러-라빈 소수 판정법
 > * Pollard's Rho ❌ - 폴라드 로 알고리즘(소인수분해)
