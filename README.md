@@ -34,15 +34,16 @@ Data Structures 관련 기능
 String 관련 기능
 ----------------
 > * KMP algorithm ❌ - 문자열 탐색 알고리즘
+> * Rabin-Karp algorithm ❌ - 라빈-카프 알고리즘
 > * Trie ❌ - 트라이
 > * Aho-Corasick ❌ - 아호-코라식
 > * Suffix Array ❌ - 접미사 배열
-> * Rabin-Karp algorithm ❌ - 라빈-카프 알고리즘
+> * Suffix Tree ❌ - 접미사 트리
 
 Geometry 관련 기능
 ------------------
 > * Convex hull ❌ - 볼록 껍질
-> * Outer product ❌ - 벡터의 외적
+> * Cross product ❌ - 벡터의 외적
 > * Line Crossing ❌ - 선분 교차
 
 Math 관련 기능
