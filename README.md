@@ -33,7 +33,7 @@ Data Structures 관련 기능
 
 String 관련 기능
 ----------------
-> * KMP algorithm ❌ - 문자열 탐색 알고리즘
+> * KMP algorithm ✔ - 문자열 탐색 알고리즘
 > * Rabin-Karp algorithm ❌ - 라빈-카프 알고리즘
 > * Trie ❌ - 트라이
 > * Aho-Corasick ❌ - 아호-코라식
